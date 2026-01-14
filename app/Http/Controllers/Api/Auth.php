@@ -26,7 +26,7 @@ class Auth extends Controller
                 'created_at' => Carbon::now()
             ]
         );
-        //TODO переклади
+        //TODO переклади queue send
         Mail::raw("Твій код для входу в гру: $code", function ($message) use ($email) {
             $message->to($email)->subject('Код доступу');
         });
