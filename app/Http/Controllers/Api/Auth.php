@@ -51,11 +51,11 @@ class Auth extends Controller
         if (!$record) {
             return response()->json(['message' => 'Wrong code'], 401);
         }
-
+        $color = '#' . substr(md5($request->email), 0, 6);
         // Знайти користувача або створити нового, якщо його ще немає
         $user = User::firstOrCreate(
             ['email' => $request->email],
-            ['name' => explode('@', $request->email)[0], 'email_verified_at' => now()]
+            ['name' => explode('@', $request->email)[0], 'email_verified_at' => now(), 'color' => $color]
         );
 
         // Видалити код після використання

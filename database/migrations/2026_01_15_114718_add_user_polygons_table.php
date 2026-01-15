@@ -11,15 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('districts', function (Blueprint $table) {
+        Schema::create('user_polygons', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->foreignId('user_id')->nullable()->constrained('users');
-            $table->magellanPoint('area', 4326);
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->geometry('area', 'polygon', 4326);
+            $table->string('color', );
+            $table->double('surface_area')->nullable();
             $table->timestamps();
-        });
 
-        DB::statement('CREATE INDEX districts_area_gist ON districts USING GIST (area);');
+            $table->spatialIndex('area');
+        });
     }
 
     /**
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('districts');
+        Schema::dropIfExists('user_polygons');
     }
 };

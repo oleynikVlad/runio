@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\Auth;
+use App\Http\Controllers\Api\Modules\Territory\Controllers\TerritoryController;
 use App\Http\Controllers\Api\User;
 use Illuminate\Support\Facades\Route;
 
@@ -13,5 +14,6 @@ Route::post('/auth/login', [Auth::class, 'loginWithCode'])
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/me', [User::class, 'me']);
+    Route::post('/ping', [TerritoryController::class, 'ping']);
 });
 
